@@ -4,7 +4,16 @@
       <h1>My Friends</h1>
     </header>
     <ul>
-      <friend-contact></friend-contact>
+      <friend-contact
+        v-for="friend in friends"
+        :key="friend.id"
+        :id="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toogle-favorite="toogleFavoriteStatus"
+      ></friend-contact>
     </ul>
   </section>
 </template>
@@ -15,26 +24,37 @@ export default {
     return {
       friends: [
         {
-          id: 1,
+          id: "1",
           name: "Pablo Quevedo",
           phone: "645 123685",
           email: "pablo@quevedo.com",
+          isFavorite: true,
         },
         {
-          id: 2,
+          id: "2",
           name: "Laura Flor",
           phone: "645 854369",
           email: "laura@flowers.com",
+          isFavorite: true,
         },
         {
-          id: 3,
+          id: "3",
           name: "Señor Q",
           phone: "645 854369",
           email: "señor@q.com",
+          isFavorite: false,
         },
       ],
     };
-  }
+  },
+  methods: {
+    toogleFavoriteStatus(friendId) {
+      const identifiedFriend = this.friends.find(
+        (friend) => friend.id === friendId
+      );
+      identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
+  },
 };
 </script>
 
